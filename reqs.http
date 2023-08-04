@@ -1,8 +1,8 @@
-@server = https://texai-glowing-couscous-pgprxq9gwh76xw-8080.preview.app.github.dev
+@server = https://obscure-memory-r9vvx4vjr942p5gv-8080.app.github.dev
 ###
-GET {{server}}/api/employees 
+GET {{server}}/api/alumnos 
 ###
-POST {{server}}/api/employees
+POST {{server}}/api/alumnos
 Content-Type: application/json
 
 {"firstName": "Mi", "lastName": "Aplicación", "description": "React"}
