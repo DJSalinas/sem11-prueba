@@ -1,0 +1,8 @@
+@server = https://texai-glowing-couscous-pgprxq9gwh76xw-8080.preview.app.github.dev
+###
+GET {{server}}/api/employees 
+###
+POST {{server}}/api/employees
+Content-Type: application/json
+
+{"firstName": "Mi", "lastName": "Aplicación", "description": "React"}
