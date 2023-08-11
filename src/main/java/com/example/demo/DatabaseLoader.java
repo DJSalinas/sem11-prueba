@@ -7,17 +7,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class DatabaseLoader implements CommandLineRunner {
 
-	private final AlumnoRepository repository;
+	private final AlumnoRepository repositoryAlumno;
+	private final CursoRepository repositoryCurso;
 
 	@Autowired
-	public DatabaseLoader(AlumnoRepository repository) {
-		this.repository = repository;
+	public DatabaseLoader(AlumnoRepository repositoryAlumno, CursoRepository repositoryCurso) {
+		this.repositoryAlumno = repositoryAlumno;
+		this.repositoryCurso = repositoryCurso;
 	}
 
 	@Override
 	public void run(String... strings) throws Exception {
-		this.repository.save(new Alumno("David", "Salinas", "PI73117002"));
-		this.repository.save(new Alumno("Juan", "Sandoval", "SM65329874"));
-		this.repository.save(new Alumno("Alvaro", "Perez", "CH12548936"));
+		this.repositoryAlumno.save(new Alumno("David", "Salinas", "PI73117002"));
+		this.repositoryAlumno.save(new Alumno("Juan", "Sandoval", "SM65329874"));
+		this.repositoryAlumno.save(new Alumno("Alvaro", "Perez", "CH12548936"));
+		this.repositoryCurso.save(new Curso("Servicios WEB", "5"));
+		this.repositoryCurso.save(new Curso("Aplicaciones Móviles", "4"));
 	}
 }

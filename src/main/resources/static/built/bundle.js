@@ -34105,7 +34105,8 @@ var App = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, App);
     _this = _super.call(this, props);
     _this.state = {
-      alumnos: []
+      alumnos: [],
+      cursos: []
     };
     return _this;
   }
@@ -34121,12 +34122,22 @@ var App = /*#__PURE__*/function (_React$Component) {
           alumnos: response.entity._embedded.alumnos
         });
       });
+      client({
+        method: 'GET',
+        path: '/api/cursos'
+      }).done(function (response) {
+        _this2.setState({
+          cursos: response.entity._embedded.cursos
+        });
+      });
     }
   }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h2", null, "Lista de Alumnos"), /*#__PURE__*/React.createElement(AlumnoList, {
         alumnos: this.state.alumnos
+      }), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement("h2", null, "Lista de Cursos"), /*#__PURE__*/React.createElement(CursoList, {
+        cursos: this.state.cursos
       }));
     }
   }]);
@@ -34153,12 +34164,33 @@ var AlumnoList = /*#__PURE__*/function (_React$Component2) {
   }]);
   return AlumnoList;
 }(React.Component);
-var Alumno = /*#__PURE__*/function (_React$Component3) {
-  _inherits(Alumno, _React$Component3);
-  var _super3 = _createSuper(Alumno);
+var CursoList = /*#__PURE__*/function (_React$Component3) {
+  _inherits(CursoList, _React$Component3);
+  var _super3 = _createSuper(CursoList);
+  function CursoList() {
+    _classCallCheck(this, CursoList);
+    return _super3.apply(this, arguments);
+  }
+  _createClass(CursoList, [{
+    key: "render",
+    value: function render() {
+      var cursos = this.props.cursos.map(function (curso) {
+        return /*#__PURE__*/React.createElement(Curso, {
+          key: curso._links.self.href,
+          curso: curso
+        });
+      });
+      return /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Nombre"), /*#__PURE__*/React.createElement("th", null, "Creditos")), cursos));
+    }
+  }]);
+  return CursoList;
+}(React.Component);
+var Alumno = /*#__PURE__*/function (_React$Component4) {
+  _inherits(Alumno, _React$Component4);
+  var _super4 = _createSuper(Alumno);
   function Alumno() {
     _classCallCheck(this, Alumno);
-    return _super3.apply(this, arguments);
+    return _super4.apply(this, arguments);
   }
   _createClass(Alumno, [{
     key: "render",
@@ -34167,6 +34199,21 @@ var Alumno = /*#__PURE__*/function (_React$Component3) {
     }
   }]);
   return Alumno;
+}(React.Component);
+var Curso = /*#__PURE__*/function (_React$Component5) {
+  _inherits(Curso, _React$Component5);
+  var _super5 = _createSuper(Curso);
+  function Curso() {
+    _classCallCheck(this, Curso);
+    return _super5.apply(this, arguments);
+  }
+  _createClass(Curso, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, this.props.curso.nombre), /*#__PURE__*/React.createElement("td", null, this.props.curso.creditos));
+    }
+  }]);
+  return Curso;
 }(React.Component);
 ReactDOM.render( /*#__PURE__*/React.createElement(App, null), document.getElementById('react'));
 
