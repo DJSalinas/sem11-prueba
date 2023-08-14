@@ -34134,15 +34134,24 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h2", null, "Lista de Alumnos"), /*#__PURE__*/React.createElement(AlumnoList, {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Hola!! Mi Aplicativo"), /*#__PURE__*/React.createElement(Titulo, {
+        entidad: "Alumnos",
+        emoji: "\uD83D\uDC68\u200D\uD83C\uDF93"
+      }), /*#__PURE__*/React.createElement(AlumnoList, {
         alumnos: this.state.alumnos
-      }), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement("h2", null, "Lista de Cursos"), /*#__PURE__*/React.createElement(CursoList, {
+      }), /*#__PURE__*/React.createElement(Titulo, {
+        entidad: "Cursos",
+        emoji: "\uD83D\uDCDD"
+      }), /*#__PURE__*/React.createElement(CursoList, {
         cursos: this.state.cursos
       }));
     }
   }]);
   return App;
-}(React.Component);
+}(React.Component); //Funcion de flecha
+var Titulo = function Titulo(props) {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement("h2", null, props.emoji, " - ", props.entidad), /*#__PURE__*/React.createElement("hr", null), "Lista completa de ", props.entidad.toLowerCase());
+};
 var AlumnoList = /*#__PURE__*/function (_React$Component2) {
   _inherits(AlumnoList, _React$Component2);
   var _super2 = _createSuper(AlumnoList);

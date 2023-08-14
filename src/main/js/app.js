@@ -20,14 +20,26 @@ class App extends React.Component {
 	render() {
 		return (
 			<>
-				<h2>Lista de Alumnos</h2>
+				<h1>Hola!! Mi Aplicativo</h1>
+				<Titulo entidad="Alumnos" emoji="👨‍🎓" />
 				<AlumnoList alumnos={this.state.alumnos}/>
-				<hr />
-				<h2>Lista de Cursos</h2>
+				<Titulo entidad="Cursos" emoji="📝" />
 				<CursoList cursos={this.state.cursos}/>
 			</>
 		)
 	}
+}
+
+//Funcion de flecha
+const Titulo = (props) => {
+	return (
+		<>
+			<hr />
+			<h2>{props.emoji} - {props.entidad}</h2>
+			<hr />
+			Lista completa de {props.entidad.toLowerCase()}
+		</>
+	)
 }
 
 class AlumnoList extends React.Component{
