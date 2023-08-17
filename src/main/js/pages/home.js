@@ -53,7 +53,7 @@ class AlumnoList extends React.Component{
 					<tr>
 						<th>Nombre</th>
 						<th>Apellido</th>
-						<th>Código</th>
+						<th>Acciones</th>
 					</tr>
 					{alumnos}
 				</tbody>
@@ -83,11 +83,15 @@ class CursoList extends React.Component{
 
 class Alumno extends React.Component{
 	render() {
+		//split omite el separador  -- slice obtiene el ultimo valor
+		const id = this.props.alumno._links.self.href.split("/").slice(-1)
 		return (
 			<tr>
 				<td>{this.props.alumno.nombre}</td>
 				<td>{this.props.alumno.apellido}</td>
-				<td>{this.props.alumno.codigo}</td>
+				<td>
+					<Link to={"/ver-alumno/" + id}>Ver Detalle</Link>
+				</td>
 			</tr>
 		)
 	}

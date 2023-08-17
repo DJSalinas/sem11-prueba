@@ -40841,9 +40841,13 @@ var _require = __webpack_require__(/*! react-router-dom */ "./node_modules/react
   RouterProvider = _require.RouterProvider;
 var HomePage = __webpack_require__(/*! ./pages/home */ "./src/main/js/pages/home.js");
 var NuevoAlumnoPage = __webpack_require__(/*! ./pages/nuevo-alumno */ "./src/main/js/pages/nuevo-alumno.js");
+var VerAlumnoPage = __webpack_require__(/*! ./pages/ver-alumno */ "./src/main/js/pages/ver-alumno.js");
 var router = createBrowserRouter([{
   path: '/',
   element: /*#__PURE__*/React.createElement(HomePage, null)
+}, {
+  path: '/ver-alumno/:id',
+  element: /*#__PURE__*/React.createElement(VerAlumnoPage, null)
 }, {
   path: '/nuevo-alumno',
   element: /*#__PURE__*/React.createElement(NuevoAlumnoPage, null)
@@ -40982,7 +40986,7 @@ var AlumnoList = /*#__PURE__*/function (_React$Component2) {
       });
       return /*#__PURE__*/React.createElement("table", {
         border: "1"
-      }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Nombre"), /*#__PURE__*/React.createElement("th", null, "Apellido"), /*#__PURE__*/React.createElement("th", null, "C\xF3digo")), alumnos));
+      }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Nombre"), /*#__PURE__*/React.createElement("th", null, "Apellido"), /*#__PURE__*/React.createElement("th", null, "Acciones")), alumnos));
     }
   }]);
   return AlumnoList;
@@ -41020,7 +41024,11 @@ var Alumno = /*#__PURE__*/function (_React$Component4) {
   _createClass(Alumno, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, this.props.alumno.nombre), /*#__PURE__*/React.createElement("td", null, this.props.alumno.apellido), /*#__PURE__*/React.createElement("td", null, this.props.alumno.codigo));
+      //split omite el separador  -- slice obtiene el ultimo valor
+      var id = this.props.alumno._links.self.href.split("/").slice(-1);
+      return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, this.props.alumno.nombre), /*#__PURE__*/React.createElement("td", null, this.props.alumno.apellido), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement(Link, {
+        to: "/ver-alumno/" + id
+      }, "Ver Detalle")));
     }
   }]);
   return Alumno;
@@ -41125,6 +41133,47 @@ var NuevoAlumnoPage = function NuevoAlumnoPage() {
   }, "Volver"));
 };
 module.exports = NuevoAlumnoPage;
+
+/***/ }),
+
+/***/ "./src/main/js/pages/ver-alumno.js":
+/*!*****************************************!*\
+  !*** ./src/main/js/pages/ver-alumno.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var _require = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js"),
+  Link = _require.Link,
+  useParams = _require.useParams;
+var _require2 = __webpack_require__(/*! react */ "./node_modules/react/index.js"),
+  useState = _require2.useState;
+var client = __webpack_require__(/*! ../client */ "./src/main/js/client.js");
+var VerAlumnoPage = function VerAlumnoPage() {
+  var _useParams = useParams(),
+    id = _useParams.id;
+  var _useState = useState({}),
+    _useState2 = _slicedToArray(_useState, 2),
+    alumno = _useState2[0],
+    setAlumno = _useState2[1];
+  client({
+    method: 'GET',
+    path: '/api/alumnos/' + id
+  }).done(function (response) {
+    return setAlumno(response.entity);
+  });
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Ver Alumno"), /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Nombre"), /*#__PURE__*/React.createElement("td", null, alumno.nombre)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Apellido"), /*#__PURE__*/React.createElement("td", null, alumno.apellido)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "C\xF3digo"), /*#__PURE__*/React.createElement("td", null, alumno.codigo))), /*#__PURE__*/React.createElement(Link, {
+    to: "/"
+  }, "Volver"));
+};
+module.exports = VerAlumnoPage;
 
 /***/ }),
 
