@@ -40842,6 +40842,7 @@ var _require = __webpack_require__(/*! react-router-dom */ "./node_modules/react
 var HomePage = __webpack_require__(/*! ./pages/home */ "./src/main/js/pages/home.js");
 var NuevoAlumnoPage = __webpack_require__(/*! ./pages/nuevo-alumno */ "./src/main/js/pages/nuevo-alumno.js");
 var VerAlumnoPage = __webpack_require__(/*! ./pages/ver-alumno */ "./src/main/js/pages/ver-alumno.js");
+var NuevoCursoPage = __webpack_require__(/*! ./pages/nuevo-curso */ "./src/main/js/pages/nuevo-curso.js");
 var router = createBrowserRouter([{
   path: '/',
   element: /*#__PURE__*/React.createElement(HomePage, null)
@@ -40851,6 +40852,9 @@ var router = createBrowserRouter([{
 }, {
   path: '/nuevo-alumno',
   element: /*#__PURE__*/React.createElement(NuevoAlumnoPage, null)
+}, {
+  path: '/nuevo-curso',
+  element: /*#__PURE__*/React.createElement(NuevoCursoPage, null)
 }]);
 ReactDOM.render( /*#__PURE__*/React.createElement(React.StrictMode, null, /*#__PURE__*/React.createElement(RouterProvider, {
   router: router
@@ -40960,7 +40964,9 @@ var HomePage = /*#__PURE__*/function (_React$Component) {
         emoji: "\uD83D\uDCDD"
       }), /*#__PURE__*/React.createElement(CursoList, {
         cursos: this.state.cursos
-      }));
+      }), /*#__PURE__*/React.createElement(Link, {
+        to: "/nuevo-curso"
+      }, "Nuevo Curso"));
     }
   }]);
   return HomePage;
@@ -41043,7 +41049,10 @@ var Curso = /*#__PURE__*/function (_React$Component5) {
   _createClass(Curso, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, this.props.curso.nombre), /*#__PURE__*/React.createElement("td", null, this.props.curso.creditos));
+      var id = this.props.curso._links.self.href.split("/").slice(-1);
+      return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, this.props.curso.nombre), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement(Link, {
+        to: "ver-curso/" + id
+      }, "Ver Detalle")));
     }
   }]);
   return Curso;
@@ -41133,6 +41142,78 @@ var NuevoAlumnoPage = function NuevoAlumnoPage() {
   }, "Volver"));
 };
 module.exports = NuevoAlumnoPage;
+
+/***/ }),
+
+/***/ "./src/main/js/pages/nuevo-curso.js":
+/*!******************************************!*\
+  !*** ./src/main/js/pages/nuevo-curso.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var _require = __webpack_require__(/*! react */ "./node_modules/react/index.js"),
+  useState = _require.useState;
+var _require2 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js"),
+  Link = _require2.Link,
+  Form = _require2.Form;
+var client = __webpack_require__(/*! ../client */ "./src/main/js/client.js");
+var NuevoCursoPage = function NuevoCursoPage() {
+  var _useState = useState(''),
+    _useState2 = _slicedToArray(_useState, 2),
+    nombre = _useState2[0],
+    setNombre = _useState2[1];
+  var _useState3 = useState(''),
+    _useState4 = _slicedToArray(_useState3, 2),
+    creditos = _useState4[0],
+    setCreditos = _useState4[1];
+  var handleSubmit = function handleSubmit(evento) {
+    evento.preventDefault();
+    client({
+      method: 'POST',
+      path: '/api/cursos',
+      entity: {
+        nombre: nombre,
+        creditos: creditos
+      },
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).done(function () {
+      window.location = '/';
+    });
+  };
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Nuevo Alumno"), /*#__PURE__*/React.createElement(Form, {
+    onSubmit: handleSubmit
+  }, /*#__PURE__*/React.createElement("label", null, "Nombre"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    id: "nombre",
+    name: "nombre",
+    onChange: function onChange(e) {
+      return setNombre(e.target.value);
+    }
+  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Cr\xE9ditos"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    id: "creditos",
+    name: "creditos",
+    onChange: function onChange(e) {
+      return setCreditos(e.target.value);
+    }
+  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+    type: "submit",
+    value: "Guardar Curso"
+  })), /*#__PURE__*/React.createElement(Link, {
+    to: "/"
+  }, "Volver"));
+};
+module.exports = NuevoCursoPage;
 
 /***/ }),
 

@@ -25,6 +25,7 @@ class HomePage extends React.Component {
                 <Link to="/nuevo-alumno">Nuevo Alumno</Link>
 				<Titulo entidad="Cursos" emoji="📝" />
 				<CursoList cursos={this.state.cursos}/>
+				<Link to="/nuevo-curso">Nuevo Curso</Link>
 			</>
 		)
 	}
@@ -72,7 +73,7 @@ class CursoList extends React.Component{
 				<tbody>
 					<tr>
 						<th>Nombre</th>
-						<th>Creditos</th>
+						<th>Acciones</th>
 					</tr>
 					{cursos}
 				</tbody>
@@ -99,10 +100,13 @@ class Alumno extends React.Component{
 
 class Curso extends React.Component{
 	render() {
+		const id = this.props.curso._links.self.href.split("/").slice(-1)
 		return (
 			<tr>
 				<td>{this.props.curso.nombre}</td>
-				<td>{this.props.curso.creditos}</td>
+				<td>
+					<Link to={"ver-curso/" + id}>Ver Detalle</Link>
+				</td>
 			</tr>
 		)
 	}
