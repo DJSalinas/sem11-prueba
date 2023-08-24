@@ -2,6 +2,14 @@
 ###
 GET {{server}}/api/alumnos 
 ###
+GET {{server}}/api/alumnos?size=2&page=0
+###
+GET {{server}}/api/alumnos?size=2&page=0&sort=nombre,desc
+###
+GET {{server}}/api/alumnos?size=2&page=1&sort=nombre,asc
+###
+GET {{server}}/api/alumnos/search/findByNombre?nombre=David
+###
 POST {{server}}/api/alumnos
 Content-Type: application/json
 
@@ -14,3 +22,14 @@ POST {{server}}/api/cursos
 Content-Type: application/json
 
 {"nombre": "Ingenieria de procesos", "creditos": "5"}
+###
+GET {{server}}/api/cursos/search/findByNombre?nombre=Servicios WEB
+
+
+###
+GET {{server}}/api/matriculas
+
+###
+GET {{server}}/api/secciones
+###
+GET {{server}}/api/secciones/search/findByNombre?nombre=A
