@@ -19,13 +19,28 @@ class HomePage extends React.Component {
 	render() {
 		return (
 			<>
-				<h1>Hola!! Mi Aplicativo</h1>
-				<Titulo entidad="Alumnos" emoji="👨‍🎓" />
-				<AlumnoList alumnos={this.state.alumnos}/>
-                <Link to="/nuevo-alumno">Nuevo Alumno</Link>
-				<Titulo entidad="Cursos" emoji="📝" />
-				<CursoList cursos={this.state.cursos}/>
-				<Link to="/nuevo-curso">Nuevo Curso</Link>
+				<h1>Bienvenidos a IDAT xD</h1>
+
+				<div style={  {"width": "100%", "display": "flex"}   }>
+					<div style={{"width": "calc(100% / 3)"}}>
+						<Titulo entidad="Alumnos" emoji="👨‍🎓" />
+						<AlumnoList alumnos={this.state.alumnos}/>
+                		<Link to="/nuevo-alumno">Nuevo Alumno</Link>
+					</div>
+					<div style={{"width": "calc(100% / 3)"}}>
+						<Titulo entidad="Cursos" emoji="📝" />
+						<CursoList cursos={this.state.cursos}/>
+						<Link to="/nuevo-curso">Nuevo Curso</Link>
+					</div>
+					<div style={{"width": "calc(100% / 3)"}}>
+						<Titulo entidad="Seccion" emoji="👩🏼‍🎤" />
+						<SeccionList secciones={this.state.secciones} />
+						<Link to="/nueva-seccion">Nueva Seccion</Link>
+					</div>
+				</div>
+
+				
+				
 			</>
 		)
 	}
@@ -82,6 +97,25 @@ class CursoList extends React.Component{
 	}
 }
 
+class SeccionList extends React.Component{
+	render() {
+		const secciones = this.props.secciones.map(seccion =>
+			<Seccion key={seccion._links.self.href} seccion={seccion}/>
+		);
+		return (
+			<table border="1">
+				<tbody>
+					<tr>
+						<th>Nombre</th>
+						<th>Acciones</th>
+					</tr>
+					{secciones}
+				</tbody>
+			</table>
+		)
+	}
+}
+
 class Alumno extends React.Component{
 	render() {
 		//split omite el separador  -- slice obtiene el ultimo valor
@@ -99,6 +133,7 @@ class Alumno extends React.Component{
 	}
 }
 
+
 class Curso extends React.Component{
 	render() {
 		const id = this.props.curso._links.self.href.split("/").slice(-1)
@@ -113,5 +148,20 @@ class Curso extends React.Component{
 		)
 	}
 }
+
+class Seccion extends React.Component{
+	render() {
+		const id = this.props.seccion._links.self.href.split("/").slice(-1)
+		return (
+			<tr>
+				<td>{this.props.seccion.nombre}</td>
+				<td>
+					<Link to={"ver-seccion/" + id}>Detalle</Link>
+				</td>
+			</tr>
+		)
+	}
+}
+
 
 module.exports = HomePage
