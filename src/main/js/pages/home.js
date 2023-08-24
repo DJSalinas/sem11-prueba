@@ -5,7 +5,7 @@ const {Link} = require('react-router-dom')
 class HomePage extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {alumnos: [], cursos: []};
+		this.state = {alumnos: [], cursos: [], secciones: []};
 	}
 	componentDidMount() {
 		client({method: 'GET', path: '/api/alumnos'}).done(response => {
@@ -14,6 +14,10 @@ class HomePage extends React.Component {
 
 		client({method: 'GET', path: '/api/cursos'}).done(response => {
 			this.setState({cursos: response.entity._embedded.cursos});
+		});
+
+		client({method: 'GET', path: '/api/secciones'}).done(response => {
+			this.setState({secciones: response.entity._embedded.secciones});
 		});
 	}
 	render() {
@@ -164,4 +168,4 @@ class Seccion extends React.Component{
 }
 
 
-module.exports = HomePage
+module.exports = HomePage;

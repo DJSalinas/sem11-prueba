@@ -40847,7 +40847,7 @@ var VerCursoPage = __webpack_require__(/*! ./pages/ver-curso */ "./src/main/js/p
 var EditarAlumnoPage = __webpack_require__(/*! ./pages/editar-alumno */ "./src/main/js/pages/editar-alumno.js");
 var EditarCursoPage = __webpack_require__(/*! ./pages/editar-curso */ "./src/main/js/pages/editar-curso.js");
 var VerSeccionPage = __webpack_require__(/*! ./pages/ver-seccion */ "./src/main/js/pages/ver-seccion.js");
-var NuevaMatriculaPage = __webpack_require__(/*! ./pages/nuevo-matricula */ "./src/main/js/pages/nuevo-matricula.js");
+var NuevoMatriculaPage = __webpack_require__(/*! ./pages/nuevo-matricula */ "./src/main/js/pages/nuevo-matricula.js");
 var router = createBrowserRouter([{
   path: '/',
   element: /*#__PURE__*/React.createElement(HomePage, null)
@@ -40874,7 +40874,7 @@ var router = createBrowserRouter([{
   element: /*#__PURE__*/React.createElement(VerSeccionPage, null)
 }, {
   path: '/ver-seccion/:id/nuevo-matricula',
-  element: /*#__PURE__*/React.createElement(NuevaMatriculaPage, null)
+  element: /*#__PURE__*/React.createElement(NuevoMatriculaPage, null)
 }]);
 ReactDOM.render( /*#__PURE__*/React.createElement(React.StrictMode, null, /*#__PURE__*/React.createElement(RouterProvider, {
   router: router
@@ -41130,7 +41130,8 @@ var HomePage = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       alumnos: [],
-      cursos: []
+      cursos: [],
+      secciones: []
     };
     return _this;
   }
@@ -41152,6 +41153,14 @@ var HomePage = /*#__PURE__*/function (_React$Component) {
       }).done(function (response) {
         _this2.setState({
           cursos: response.entity._embedded.cursos
+        });
+      });
+      client({
+        method: 'GET',
+        path: '/api/secciones'
+      }).done(function (response) {
+        _this2.setState({
+          secciones: response.entity._embedded.secciones
         });
       });
     }
@@ -41511,7 +41520,7 @@ var _require2 = __webpack_require__(/*! react-router-dom */ "./node_modules/reac
   Link = _require2.Link,
   useParams = _require2.useParams;
 var client = __webpack_require__(/*! ../client */ "./src/main/js/client.js");
-var NuevaMatriculaPage = function NuevaMatriculaPage() {
+var NuevoMatriculaPage = function NuevoMatriculaPage() {
   var _useParams = useParams(),
     id = _useParams.id;
   var _useState = useState([]),
@@ -41536,15 +41545,15 @@ var NuevaMatriculaPage = function NuevaMatriculaPage() {
       method: 'POST',
       path: '/api/matriculas',
       entity: {
-        banda: 'http://localhost:8080/api/secciones/' + id,
-        musico: 'http://localhost:8080/api/alumnos/' + idAlumno,
-        instrumento: 'http://localhost:8080/api/cursos/' + idCurso
+        seccion: 'http://localhost:8080/api/secciones/' + id,
+        alumno: 'http://localhost:8080/api/alumnos/' + idAlumno,
+        curso: 'http://localhost:8080/api/cursos/' + idCurso
       },
       headers: {
         'Content-Type': 'application/json'
       }
     }).done(function () {
-      window.location = '/';
+      window.location.href = '/';
     });
   };
   useEffect(function () {
@@ -41596,7 +41605,7 @@ var NuevaMatriculaPage = function NuevaMatriculaPage() {
     to: "/"
   }, "Volver"));
 };
-module.exports = NuevaMatriculaPage;
+module.exports = NuevoMatriculaPage;
 
 /***/ }),
 
@@ -41737,7 +41746,7 @@ var VerSeccionPage = function VerSeccionPage() {
       key: matricula.ID
     }, /*#__PURE__*/React.createElement("td", null, matricula.ALUMNO), /*#__PURE__*/React.createElement("td", null, matricula.CURSO));
   }))), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(Link, {
-    to: "/ver-banda/".concat(id, "/nuevo-matricula")
+    to: "/ver-seccion/".concat(id, "/nuevo-matricula")
   }, "Nuevo Alumno"), " |", /*#__PURE__*/React.createElement(Link, {
     to: "/"
   }, "Volver"));

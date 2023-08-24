@@ -3,7 +3,7 @@ const {useState, useEffect} = require('react');
 const { Link,useParams } = require('react-router-dom');
 const client = require('../client');
 
-const NuevaMatriculaPage = () => {
+const NuevoMatriculaPage = () => {
 
     let { id } = useParams();
 
@@ -19,12 +19,12 @@ const NuevaMatriculaPage = () => {
             method: 'POST',
             path: '/api/matriculas',
             entity: {
-                banda: 'http://localhost:8080/api/secciones/'+id,
-                musico: 'http://localhost:8080/api/alumnos/'+idAlumno,
-                instrumento: 'http://localhost:8080/api/cursos/'+idCurso},
+                seccion: 'http://localhost:8080/api/secciones/'+id,
+                alumno: 'http://localhost:8080/api/alumnos/'+idAlumno,
+                curso: 'http://localhost:8080/api/cursos/'+idCurso},
             headers: {'Content-Type': 'application/json'}
         }).done(()=>{
-           window.location = '/';
+            window.location.href = '/';
         })
     }
 
@@ -77,4 +77,4 @@ const NuevaMatriculaPage = () => {
     )
 }
 
-module.exports = NuevaMatriculaPage;
+module.exports = NuevoMatriculaPage;

@@ -10,7 +10,7 @@ const VerCursoPage = require('./pages/ver-curso');
 const EditarAlumnoPage = require('./pages/editar-alumno');
 const EditarCursoPage = require('./pages/editar-curso');
 const VerSeccionPage = require('./pages/ver-seccion');
-const NuevaMatriculaPage = require('./pages/nuevo-matricula');
+const NuevoMatriculaPage = require('./pages/nuevo-matricula');
 
 const router = createBrowserRouter([
 	{ path: '/', element:<HomePage /> },
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
 	{ path: '/ver-curso/:id', element:<VerCursoPage /> },
 	{ path: '/editar-curso/:id', element:<EditarCursoPage />},
 	{ path: '/ver-seccion/:id', element:<VerSeccionPage />},
-	{ path: '/ver-seccion/:id/nuevo-matricula', element:<NuevaMatriculaPage />}
+	{ path: '/ver-seccion/:id/nuevo-matricula', element:<NuevoMatriculaPage />}
 ])
 
 ReactDOM.render(
