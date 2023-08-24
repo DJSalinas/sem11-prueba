@@ -1,6 +1,6 @@
 const React = require('react');
 const {useState} = require('react')
-const { Link, Form } = require('react-router-dom');
+const { Link } = require('react-router-dom');
 const client = require('../client');
 
 
@@ -25,7 +25,7 @@ const NuevoAlumnoPage = () => {
     return (
         <>
             <h1>Nuevo Alumno</h1>
-            <Form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <label>Nombre</label><br/>
                 <input type='text' id='nombre' name='nombre' onChange={e=>setNombre(e.target.value)}/><br/>
                 <label>Apellido</label><br/>
@@ -33,7 +33,7 @@ const NuevoAlumnoPage = () => {
                 <label>Código</label><br/>
                 <input type='text' id='codigo' name='codigo' onChange={e=>setCodigo(e.target.value)}/><br/>
                 <input type='submit' value="Guardar Alumno" />
-            </Form>
+            </form>
             <Link to="/">Volver</Link>
         </>
     )

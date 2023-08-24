@@ -91,7 +91,8 @@ class Alumno extends React.Component{
 				<td>{this.props.alumno.nombre}</td>
 				<td>{this.props.alumno.apellido}</td>
 				<td>
-					<Link to={"/ver-alumno/" + id}>Ver Detalle</Link>
+					<Link to={"/ver-alumno/" + id}>Detalle</Link> | 
+					<Link to={"/editar-alumno/" + id}>Editar</Link>
 				</td>
 			</tr>
 		)
@@ -105,7 +106,8 @@ class Curso extends React.Component{
 			<tr>
 				<td>{this.props.curso.nombre}</td>
 				<td>
-					<Link to={"ver-curso/" + id}>Ver Detalle</Link>
+					<Link to={"ver-curso/" + id}>Detalle</Link> | 
+					<Link to={"editar-curso/" + id}>Editar</Link>
 				</td>
 			</tr>
 		)
